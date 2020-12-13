@@ -1,4 +1,4 @@
-use x11::xlib;
+use super::*;
 
 pub struct Display {
     display: *mut xlib::Display,
@@ -32,5 +32,13 @@ impl Display {
 
     pub fn height(&self, screen_int: i32) -> i32 {
         unsafe { xlib::XDisplayHeight(self.display, screen_int) }
+    }
+    
+    pub fn get_wm_hints(&self, window: Window) -> WMHints{
+        WMHints{
+            ptr: unsafe{
+                xlib::XGetWMHints()
+            }
+        }
     }
 }
